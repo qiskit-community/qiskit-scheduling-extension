@@ -12,19 +12,15 @@
 
 """Test the CompactScheduling pass"""
 
-from ddt import ddt
-
 from qiskit import QuantumCircuit
 from qiskit.test import QiskitTestCase
 from qiskit.transpiler.instruction_durations import InstructionDurations
-from qiskit.transpiler.passes import (
-    CompactScheduleAnalysis,
-    PadDelay,
-)
+from qiskit.transpiler.passes import PadDelay
 from qiskit.transpiler.passmanager import PassManager
 
+from qiskit_scheduling_extension.compact import CompactScheduleAnalysis
 
-@ddt
+
 class TestCompactScheduling(QiskitTestCase):
     """Tests the CompactScheduling pass"""
 
