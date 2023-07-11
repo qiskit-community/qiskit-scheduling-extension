@@ -1,0 +1,33 @@
+name: Upload Python Package
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  wheel-build:
+    name: Build and Publish Release Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        name: Install Python
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -U twine wheel build
+      - name: Build Artifacts
+        run: |
+          python -m build
+        shell: bash
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./dist/qiskit*
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: twine upload dist/qiskit*

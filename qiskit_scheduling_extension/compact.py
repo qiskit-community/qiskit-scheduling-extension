@@ -20,9 +20,10 @@ from qiskit.transpiler.passes.scheduling.scheduling.alap import ALAPScheduleAnal
 
 
 class CompactScheduleAnalysis(BaseScheduler):
-    """Compact scheduling pass, in which the head non-conditional gates are scheduled
-    as late as possible (ALAP) while the tail non-conditional gates are scheduled
-    as soon as possible (ASAP).
+    """Compact scheduling pass.
+
+    It schedules the head non-conditional gates as late as possible (ALAP) while
+    it schedules the tail non-conditional gates as soon as possible (ASAP).
 
     For example, given a below circuit,
 
