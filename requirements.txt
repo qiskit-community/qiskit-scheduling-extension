@@ -1,2 +1,2 @@
 pbr>=5.7.0
-qiskit-terra>=0.24.0
+qiskit-terra==0.24.0
