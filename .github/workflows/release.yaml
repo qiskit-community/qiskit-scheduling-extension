@@ -11,6 +11,9 @@ jobs:
   wheel-build:
     name: Build and Publish Release Artifacts
     runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -18,7 +21,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install dependencies
-        run: pip install -U twine wheel build
+        run: pip install -U wheel build
       - name: Build Artifacts
         run: |
           python -m build
@@ -27,7 +30,4 @@ jobs:
         with:
           path: ./dist/qiskit*
       - name: Publish to PyPI
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-        run: twine upload dist/qiskit*
+        uses: pypa/gh-action-pypi-publish@release/v1
