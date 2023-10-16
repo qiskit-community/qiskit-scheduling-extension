@@ -87,7 +87,6 @@ class CompactScheduleAnalysis(BaseScheduler):
         node_start_time = alap_schedule.property_set["node_start_time"]
 
         # move floating non-conditional gate forward as possible
-        bit_indices = {bit: index for index, bit in enumerate(dag.qubits)}
         for node in dag.topological_op_nodes():
             if not isinstance(node.op, Gate) or node.op.condition_bits:
                 continue
@@ -99,7 +98,7 @@ class CompactScheduleAnalysis(BaseScheduler):
                     asap_time = start_time  # no update of node_start_time[node]
                     break
 
-                prev_duration = self._get_node_duration(prev, bit_indices, dag)
+                prev_duration = self._get_node_duration(prev, dag)
                 prev_stop_time = node_start_time[prev] + prev_duration
                 asap_time = max(asap_time, prev_stop_time)
 
